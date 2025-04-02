@@ -1,16 +1,44 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 import styles from '../page.module.css';
 
 export default function Page() {
   const [tasks, setTasks] = useState([]);
   const [error, setError] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.push('/login'); 
+      return;
+    }
+
+    async function verifyToken() {
+      try {
+        const response = await fetch('/api/auth/verify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Invalid or expired token');
+        }
+      } catch (err) {
+        setError(err.message);
+        router.push('/login'); 
+      }
+    }
+
     async function fetchTasks() {
       try {
-        const response = await fetch('/api/tasks');
+        const response = await fetch('/api/tasks', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch tasks');
         }
@@ -20,8 +48,9 @@ export default function Page() {
         setError(err.message);
       }
     }
-    fetchTasks();
-  }, []);
+
+    verifyToken().then(fetchTasks);
+  }, [router]);
 
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this task?')) {
@@ -31,6 +60,7 @@ export default function Page() {
     try {
       const response = await fetch(`/api/tasks?id=${id}`, {
         method: 'DELETE',
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
 
       if (!response.ok) {
@@ -62,6 +92,7 @@ export default function Page() {
           </div>
         ))}
       </div>
+      <Footer />
     </div>
   );
 }

@@ -1,16 +1,18 @@
 "use client";
-import React from 'react';
-import Navbar from '../components/Navbar';
-import HomePage from '../pages/HomePage';
-import styles from './page.module.css';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <Navbar />
-      <main className={styles.main}>
-        <HomePage />
-      </main>
-    </div>
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.push('/login'); 
+    } else {
+      router.push('/projects'); 
+    }
+  }, [router]);
+
+  return null; 
 }

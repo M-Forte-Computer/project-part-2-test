@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import styles from '../app/page.module.css';
 
 function ProjectsPage() {
@@ -24,7 +25,6 @@ function ProjectsPage() {
   }, []);
 
   const handleDelete = async (id) => {
-   
     if (!window.confirm('Are you sure you want to delete this task?')) {
       return;
     }
@@ -38,7 +38,7 @@ function ProjectsPage() {
         throw new Error('Failed to delete task');
       }
 
-      setTasks(tasks.filter(task => task.id !== id));
+      setTasks((prevTasks) => prevTasks.filter(task => task.id !== id));
     } catch (err) {
       setError(err.message);
     }
@@ -63,6 +63,7 @@ function ProjectsPage() {
           </div>
         ))}
       </div>
+      <Footer />
     </div>
   );
 }

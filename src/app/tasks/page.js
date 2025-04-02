@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 import styles from '../page.module.css';
 
 export default function Page() {
@@ -53,6 +54,7 @@ export default function Page() {
         />
         <button className={styles.button} type="submit">Add Task</button>
       </form>
+      <Footer />
     </div>
   );
 }
