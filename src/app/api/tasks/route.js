@@ -16,12 +16,31 @@ function verifyToken(headers) {
   return jwt.verify(token, secret);
 }
 
+function calculateDuration(createdAt) {
+  const createdDate = new Date(createdAt);
+  const currentDate = new Date();
+  const durationInMilliseconds = currentDate - createdDate;
+
+  const hours = Math.floor(durationInMilliseconds / (1000 * 60 * 60));
+  const minutes = Math.floor((durationInMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((durationInMilliseconds % (1000 * 60)) / 1000);
+
+  return `${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+}
+
 export async function GET(request) {
   try {
     verifyToken(request.headers);
     const tasks = await prisma.task.findMany();
-    return NextResponse.json(tasks);
+
+    const tasksWithDurations = tasks.map((task) => ({
+      ...task,
+      duration: calculateDuration(task.createdAt),
+    }));
+
+    return NextResponse.json(tasksWithDurations);
   } catch (error) {
+    console.error('Error fetching tasks:', error.message);
     return NextResponse.json({ error: 'Failed to fetch tasks', details: error.message }, { status: 500 });
   }
 }
@@ -36,6 +55,7 @@ export async function POST(request) {
     const newTask = await prisma.task.create({
       data: { title, description },
     });
+
     return NextResponse.json(newTask, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to create task', details: error.message }, { status: 500 });

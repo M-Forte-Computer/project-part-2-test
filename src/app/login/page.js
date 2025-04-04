@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import styles from '../page.module.css';
 
 export default function LoginPage() {
-  const [isSignup, setIsSignup] = useState(false); // Toggle between login and signup
+  const [isSignup, setIsSignup] = useState(false);
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
@@ -28,11 +28,11 @@ export default function LoginPage() {
         setSuccess('Account created successfully. You can now log in.');
         setError(null);
         setFormData({ email: '', password: '' });
-        setIsSignup(false); // Switch to login after successful signup
+        setIsSignup(false);
       } else {
         const data = await response.json();
         localStorage.setItem('token', data.token);
-        router.push('/projects');
+        router.push('/home'); 
       }
     } catch (err) {
       setError(err.message);

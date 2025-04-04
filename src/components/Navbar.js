@@ -7,7 +7,7 @@ function Navbar() {
   return (
     <nav className={styles.nav}>
       <ul className={styles.navList}>
-        <li><Link className={styles.navLink} href="/">Home</Link></li>
+        <li><Link className={styles.navLink} href="/home">Home</Link></li>
         <li><Link className={styles.navLink} href="/projects">Projects</Link></li>
         <li><Link className={styles.navLink} href="/tasks">Tasks</Link></li>
         <li><Link className={styles.navLink} href="/signup">Signup</Link></li> 

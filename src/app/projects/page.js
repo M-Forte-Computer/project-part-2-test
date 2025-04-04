@@ -13,7 +13,7 @@ export default function Page() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-      router.push('/login'); 
+      router.push('/login');
       return;
     }
 
@@ -30,7 +30,7 @@ export default function Page() {
         }
       } catch (err) {
         setError(err.message);
-        router.push('/login'); 
+        router.push('/login');
       }
     }
 
@@ -83,7 +83,9 @@ export default function Page() {
           <div key={task.id} className={styles.taskCard}>
             <h3 className={styles.taskTitle}>{task.title}</h3>
             <p className={styles.taskDescription}>{task.description}</p>
-            <button 
+            <p className={styles.taskCreatedAt}>Created At: {task.createdAt}</p>
+            <p className={styles.taskDuration}>Active for: {task.duration || 'N/A'}</p>
+            <button
               onClick={() => handleDelete(task.id)}
               className={`${styles.button} ${styles.deleteButton}`}
             >
