@@ -83,8 +83,14 @@ export default function Page() {
           <div key={task.id} className={styles.taskCard}>
             <h3 className={styles.taskTitle}>{task.title}</h3>
             <p className={styles.taskDescription}>{task.description}</p>
-            <p className={styles.taskCreatedAt}>Created At: {task.createdAt}</p>
-            <p className={styles.taskDuration}>Active for: {task.duration || 'N/A'}</p>
+            <p className={styles.taskCreatedAt}>
+              <span className={styles.taskLabel}>Created: </span>
+              {task.createdAt}
+            </p>
+            <p className={styles.taskDuration}>
+              <span className={styles.taskLabel}>Active for: </span>
+              {task.duration || 'N/A'}
+            </p>
             <button
               onClick={() => handleDelete(task.id)}
               className={`${styles.button} ${styles.deleteButton}`}

@@ -41,6 +41,19 @@ function calculateDuration(createdAt) {
   return `${hours} hours, ${minutes} minutes, ${seconds} seconds (EST)`;
 }
 
+function formatDate(date) {
+  return new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true
+  }).format(new Date(date));
+}
+
 export async function GET(request) {
   try {
     verifyToken(request.headers);
@@ -48,6 +61,7 @@ export async function GET(request) {
 
     const tasksWithDurations = tasks.map((task) => ({
       ...task,
+      createdAt: formatDate(task.createdAt),
       duration: calculateDuration(task.createdAt),
     }));
 
