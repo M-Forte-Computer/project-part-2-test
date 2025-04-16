@@ -210,6 +210,33 @@
   width: 100%;
 }
 
+.navContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.logoText {
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
 .container {
   background: #000000;
   max-width: 1400px;
@@ -343,4 +370,13 @@
   font-size: 1.2rem;
   color: var(--text-color);
   margin-top: 10px;
+}
+
+.footer {
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.03);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: auto;
 }

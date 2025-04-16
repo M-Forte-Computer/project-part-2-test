@@ -1,8 +1,9 @@
 :root {
   --background: #000000; 
   --foreground: #ffffff; 
-  --border-radius: 8px;
+  --border-radius: 12px;
   --transition-speed: 0.3s ease-in-out;
+  --max-width: 1400px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,6 +18,8 @@ html, body {
   overflow-x: hidden;
   scroll-behavior: smooth;
   height: 100%; 
+  background: #000000;
+  color: #ffffff;
 }
 
 body {

@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import styles from './Footer.module.css';
+import styles from '../app/page.module.css';
 
 function Footer() {
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../app/page.module.css'; // Ensure global CSS is imported
+import '../app/page.module.css'; 
 
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />;
