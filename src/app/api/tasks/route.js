@@ -19,13 +19,26 @@ function verifyToken(headers) {
 function calculateDuration(createdAt) {
   const createdDate = new Date(createdAt);
   const currentDate = new Date();
-  const durationInMilliseconds = currentDate - createdDate;
+  
+  // Convert to Eastern Time
+  const easternTime = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/New_York',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  }).format(currentDate);
+  
+  const easternDate = new Date(easternTime);
+  const durationInMilliseconds = easternDate - createdDate;
 
   const hours = Math.floor(durationInMilliseconds / (1000 * 60 * 60));
   const minutes = Math.floor((durationInMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((durationInMilliseconds % (1000 * 60)) / 1000);
 
-  return `${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+  return `${hours} hours, ${minutes} minutes, ${seconds} seconds (EST)`;
 }
 
 export async function GET(request) {
