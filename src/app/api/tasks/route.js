@@ -20,7 +20,6 @@ function calculateDuration(createdAt) {
   const createdDate = new Date(createdAt);
   const currentDate = new Date();
   
-  // Convert to Eastern Time
   const easternTime = new Intl.DateTimeFormat('en-US', {
     timeZone: 'America/New_York',
     year: 'numeric',
@@ -103,5 +102,28 @@ export async function DELETE(request) {
     return NextResponse.json({ message: 'Task deleted successfully' });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to delete task', details: error.message }, { status: 500 });
+  }
+}
+
+export async function PUT(request) {
+  try {
+    const { id, title, description } = await request.json();
+    verifyToken(request.headers);
+    
+    const updatedTask = await prisma.task.update({
+      where: { id: parseInt(id) },
+      data: { title, description }
+    });
+
+    return NextResponse.json({
+      ...updatedTask,
+      createdAt: formatDate(updatedTask.createdAt),
+      duration: calculateDuration(updatedTask.createdAt)
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Failed to update task', details: error.message },
+      { status: 500 }
+    );
   }
 }

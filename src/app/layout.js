@@ -2,7 +2,7 @@ import './globals.css'
 
 export const metadata = {
   title: 'Task Management App',
-  description: 'Manage your tasks and projects',
+  description: 'Track your projects and tasks',
 }
 
 export default function RootLayout({ children }) {

@@ -78,3 +78,6 @@ button:hover {
   padding: 20px;
   box-shadow: none;
 }
+
+/* Import module CSS */
+@import './page.module.css';

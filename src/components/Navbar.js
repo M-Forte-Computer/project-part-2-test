@@ -22,7 +22,8 @@ function Navbar() {
           <li><Link className={styles.navLink} href="/home">Home</Link></li>
           <li><Link className={styles.navLink} href="/projects">Projects</Link></li>
           <li><Link className={styles.navLink} href="/tasks">Tasks</Link></li>
-          <li><Link className={styles.navLink} href="/signup">Signup</Link></li> 
+          <li><Link className={styles.navLink} href="/contact">Contact</Link></li>
+          <li><Link className={styles.navLink} href="/signup">log out</Link></li> 
         </ul>
       </div>
     </nav>
