@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';  // Add this import
+import Link from 'next/link';  
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import styles from '../page.module.css';
